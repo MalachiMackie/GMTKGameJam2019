@@ -7,12 +7,14 @@ public class Player : MonoBehaviour
 
     private Rigidbody rigidBody;
     public float maxSpeed;
+    public float acceleration;
 
 
     // Start is called before the first frame update
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
+        rigidBody.freezeRotation = true;
     }
 
     // Update is called once per frame
@@ -28,7 +30,7 @@ public class Player : MonoBehaviour
         {
             if (rigidBody.velocity.magnitude <= maxSpeed )
             {
-                rigidBody.AddRelativeForce(0, 0, 50);
+                rigidBody.AddRelativeForce(0, 0, acceleration);
             }
         }
         
