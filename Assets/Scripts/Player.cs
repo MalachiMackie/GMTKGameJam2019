@@ -14,12 +14,11 @@ public class Player : MonoBehaviour
     public Vector3 StartPos;
     public Quaternion StartRotation;
 
-    private int impulseTimer = 0;
-
-
     private float moveTimer = 0.5f;
     private bool canMove = true;
     private bool moveCounting = false;
+
+    private bool canDash = true;
 
     // Start is called before the first frame update
     void Start()
@@ -115,12 +114,6 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (impulseTimer > 0)
-        {
-            impulseTimer -= 1/50;
-            DashLoaded();
-        }
-
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             if (rigidBody.velocity.magnitude <= maxSpeed)
@@ -129,16 +122,18 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetKey(KeyCode.Space) && impulseTimer == 0)
+        if (Input.GetKey(KeyCode.Space) && canDash)
         {
-            rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
-            impulseTimer = 2;
-        
+            StartCoroutine(Dash());
         }
     }
 
-    private void DashLoaded()
+    IEnumerator Dash()
     {
-        //TODO: Give feedback that the dash is loaded
+        rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
+        canDash = false;
+        yield return new WaitForSeconds(2);
+        canDash = true;
+        //Give feedback that the dash is loaded
     }
 }
