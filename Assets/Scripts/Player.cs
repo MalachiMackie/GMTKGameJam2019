@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     private Rigidbody rigidBody;
     public float maxSpeed;
     public float acceleration;
+    public Vector3 StartPos;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        StartPos = transform.position;
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
     }
@@ -21,6 +23,14 @@ public class Player : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Respawn")
+        {
+            transform.position = StartPos;
+        }
     }
 
     void FixedUpdate()
