@@ -5,9 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - TurnTable
-  - Press_Space
-  - Press_W_or_Up
   - TextTrigger
+  - Floor
+  - Elevator
   layers:
   - Default
   - TransparentFX
