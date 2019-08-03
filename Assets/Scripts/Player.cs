@@ -39,20 +39,30 @@ public class Player : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Respawn")
+        switch (other.gameObject.tag)
         {
-            transform.position = StartPos;
-            transform.rotation = StartRotation;
-        }
-
-        if (other.gameObject.tag == "TurnTable")
-        {
-            transform.SetParent(other.gameObject.transform);
-        }
-
-        if (other.gameObject.tag == "Finish")
-        {
-            gameManager.NextLevel();
+            case "Respawn":
+                {
+                    transform.position = StartPos;
+                    transform.rotation = StartRotation;
+                    break;
+                }
+            case "TurnTable":
+                {
+                    transform.SetParent(other.gameObject.transform);
+                    break;
+                }
+            case "Finish":
+                {
+                    gameManager.NextLevel();
+                    break;
+                }
+            case "Key":
+                {
+                    var keyScript = other.gameObject.GetComponent<Key>();
+                    keyScript.Trigger();
+                    break;
+                }
         }
     }
 
