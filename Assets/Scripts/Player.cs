@@ -8,11 +8,13 @@ public class Player : MonoBehaviour
     private Rigidbody rigidBody;
     public float maxSpeed;
     public float acceleration;
+    public Vector3 StartPos;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        StartPos = transform.position;
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
     }
@@ -23,13 +25,17 @@ public class Player : MonoBehaviour
         
     }
 
-    void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collider.gameObject.tag == "TurnTable")
+        if (other.gameObject.tag == "Respawn")
         {
-            transform.SetParent(collider.gameObject.transform);
+            transform.position = StartPos;
         }
-        
+
+        if (other.gameObject.tag == "TurnTable")
+        {
+            transform.SetParent(other.gameObject.transform);
+        }
     }
 
     void OnTriggerExit(Collider collider)

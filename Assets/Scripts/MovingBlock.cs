@@ -25,7 +25,7 @@ public class MovingBlock : MonoBehaviour
     // FixedUpdate is called 50 times per second
     void FixedUpdate()
     {
-        if ((transform.position - nextPos).magnitude <= 0.5)
+        if ((transform.position - nextPos).magnitude <= 0)
         {
             nextPos = nextPos == startPos ? endPos : startPos;
         }
