@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 6722091548212545047}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.505, z: 0}
-  m_LocalScale: {x: 3, y: 0.01, z: 3}
+  m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -105,7 +105,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
-  m_Height: 2
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &7553164298844443342
@@ -120,5 +120,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbe13ff6717a6343a1de521d8ca91a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateTime: 0
+  rotateTime: 3
   rotateDirection: 0
