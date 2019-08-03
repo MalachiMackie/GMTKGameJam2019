@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -45,6 +46,11 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "TurnTable")
         {
             transform.SetParent(other.gameObject.transform);
+        }
+
+        if (other.gameObject.tag == "Finish")
+        {
+            SceneManager.LoadScene("Level Two");
         }
     }
 
