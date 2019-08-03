@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - TurnTable
+  - Press_Space
+  - Press_W_or_Up
   layers:
   - Default
   - TransparentFX
