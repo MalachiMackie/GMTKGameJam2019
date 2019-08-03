@@ -1,19 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    public void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+        if (gameManager == null)
+        {
+            Application.Quit();
+        }
+    }
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Level One");
+        gameManager.NextLevel();
     }
 
     public void QuitGame()
     {
-        Application.Quit();
+        gameManager.QuitGame();
     }
 
 }
