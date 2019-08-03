@@ -14,6 +14,8 @@ public class Player : MonoBehaviour
     public Vector3 StartPos;
     public Quaternion StartRotation;
 
+    public GameManager gameManager;
+
     private float moveTimer = 0.5f;
     private bool canMove = true;
     private bool moveCounting = false;
@@ -50,7 +52,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.tag == "Finish")
         {
-            SceneManager.LoadScene("Level Two");
+            gameManager.NextLevel();
         }
     }
 
@@ -72,7 +74,6 @@ public class Player : MonoBehaviour
             }
             if (!canMove)
             {
-                print("Can start moving again");
                 canMove = true;
             }
         }
@@ -83,15 +84,6 @@ public class Player : MonoBehaviour
         if (Constants.FloorTags.Contains(collision.gameObject.tag))
         {
             StartCoroutine(StopMovingAfterSeconds(moveTimer));
-        }
-    }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (Constants.FloorTags.Contains(collision.gameObject.tag))
-        {
-            print(moveCounting);
-            
         }
     }
 
@@ -110,7 +102,6 @@ public class Player : MonoBehaviour
     {
         if (!canMove)
         {
-            //print("Cant Move");
             return;
         }
 
