@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,9 +8,7 @@ public class Player : MonoBehaviour
     public float maxSpeed;
     public float acceleration;
     public Vector3 StartPos;
-
-    public Text TutorialText1;
-    public Text TutorialText2;
+    public Quaternion StartRotation;
 
     private int impulseTimer = 0;
 
@@ -21,6 +17,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         StartPos = transform.position;
+        StartRotation = transform.rotation;
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
     }
@@ -36,21 +33,12 @@ public class Player : MonoBehaviour
         if (other.gameObject.tag == "Respawn")
         {
             transform.position = StartPos;
+            transform.rotation = StartRotation;
         }
 
         if (other.gameObject.tag == "TurnTable")
         {
             transform.SetParent(other.gameObject.transform);
-        }
-
-        if (other.gameObject.tag == "Press_W_or_Up")
-        {
-            TutorialText1.text = "Press W or Up Arrow to move forward";
-        }
-
-        if (other.gameObject.tag == "Press_Space")
-        {
-            TutorialText2.text = "Press Space to Dash";
         }
     }
 
@@ -60,17 +48,6 @@ public class Player : MonoBehaviour
         {
             transform.SetParent(null);
         }
-
-        if (collider.gameObject.tag == "Press_W_or_Up")
-        {
-            TutorialText1.text = "";
-        }
-
-        if (collider.gameObject.tag == "Press_Space")
-        {
-            TutorialText2.text = "";
-        }
-
     }
 
     void FixedUpdate()

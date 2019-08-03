@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts
@@ -15,6 +14,8 @@ namespace Assets.Scripts
 
         public float RotateTime = 4;
 
+        private bool activated = false;
+
         public RotateDirection RotateDirection;
 
         public void Start()
@@ -24,9 +25,17 @@ namespace Assets.Scripts
 
         public void FixedUpdate()
         {
-            if (rotating)
+            if (rotating && activated)
             {
                 StartCoroutine(Rotate(PauseTime));
+            }
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                activated = true;
             }
         }
 
@@ -43,7 +52,7 @@ namespace Assets.Scripts
 
             var yRotation = transform.localRotation.eulerAngles.y;
 
-            var a = yRotation % (360/4);
+            var a = yRotation % (360/Intervals);
 
             if (a < rotateDelta)
             {
