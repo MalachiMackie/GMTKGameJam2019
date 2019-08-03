@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "TurnTable")
         {
             transform.SetParent(null);
+            //transform.localScale = new Vector3(1, 2, 1);
         }
     }
 
