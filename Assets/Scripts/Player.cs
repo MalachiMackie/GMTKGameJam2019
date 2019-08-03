@@ -23,9 +23,25 @@ public class Player : MonoBehaviour
         
     }
 
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "TurnTable")
+        {
+            transform.SetParent(collider.gameObject.transform);
+        }
+        
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "TurnTable")
+        {
+            transform.SetParent(null);
+        }
+    }
+
     void FixedUpdate()
     {
-        Debug.Log(rigidBody.velocity.magnitude);
         if (Input.GetKey(KeyCode.W))
         {
             if (rigidBody.velocity.magnitude <= maxSpeed )
