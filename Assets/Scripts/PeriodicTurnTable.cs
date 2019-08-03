@@ -6,7 +6,6 @@ namespace Assets.Scripts
 {
     class PeriodicTurnTable : MonoBehaviour
     {
-        public GameObject RotatingObject;
 
         private bool rotating = true;
 
