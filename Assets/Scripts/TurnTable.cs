@@ -1,29 +1,71 @@
-﻿using Assets.Scripts;
+﻿using System.Collections;
 using UnityEngine;
 
-public class TurnTable : MonoBehaviour
+namespace Assets.Scripts
 {
-
-    public float rotateTime;
-
-    public RotateDirection rotateDirection;
-
-    // Start is called before the first frame update
-    public virtual void Start()
+    class TurnTable : MonoBehaviour
     {
-        rotateTime = rotateTime == 0 ? 1 : rotateTime;
-    }
 
-    // Update is called once per frame
-    public virtual void FixedUpdate()
-    {
-        float rotateDelta = 360 / (50 / (1 / rotateTime));
+        private bool rotating = true;
 
-        if (rotateDirection == RotateDirection.AntiClockwise)
+        public float PauseTime = 1;
+
+        public int Intervals = 4;
+
+        public float RotateTime = 4;
+
+        private bool activated = false;
+
+        public RotateDirection RotateDirection;
+
+        public void Start()
         {
-            rotateDelta *= -1;
+            
         }
-        transform.Rotate(0, rotateDelta, 0);
+
+        public void FixedUpdate()
+        {
+            if (rotating && activated)
+            {
+                StartCoroutine(Rotate(PauseTime));
+            }
+        }
+
+        void OnCollisionEnter(Collision collision)
+        {
+            if (collision.gameObject.tag == "Player")
+            {
+                activated = true;
+            }
+        }
+
+        private IEnumerator Rotate(float seconds)
+        {
+            float rotateDelta = 360 / (50 / (1 / RotateTime));
+            //Bug when rotation is anitclockwise
+            if (RotateDirection == RotateDirection.AntiClockwise)
+            {
+                rotateDelta *= -1;
+            }
+
+            transform.Rotate(0, rotateDelta, 0);
+
+            var yRotation = transform.localRotation.eulerAngles.y;
+
+            if (Intervals == 0)
+            {
+                yield return null;
+            }
+            var a = yRotation % (360/Intervals);
+
+            if (a < Mathf.Abs(rotateDelta))
+            {
+                rotating = false;
+                yield return new WaitForSeconds(seconds);
+                transform.eulerAngles = new Vector3(0, yRotation + Mathf.Sign(rotateDelta * 0.5f), 0);
+                rotating = true;
+            }
+        }
 
     }
 }
