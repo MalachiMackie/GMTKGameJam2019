@@ -5,6 +5,7 @@ namespace Assets.Scripts
 {
     class TurnTable : MonoBehaviour
     {
+        public float StartUpTime = 0.5f;
 
         private bool rotating = true;
 
@@ -35,8 +36,14 @@ namespace Assets.Scripts
         {
             if (collision.gameObject.tag == "Player")
             {
-                activated = true;
+                StartCoroutine(Activate());
             }
+        }
+
+        private IEnumerator Activate()
+        {
+            yield return new WaitForSeconds(StartUpTime);
+            activated = true;
         }
 
         private IEnumerator Rotate(float seconds)
