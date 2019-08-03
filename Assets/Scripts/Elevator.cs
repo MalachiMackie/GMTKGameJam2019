@@ -1,8 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Assets.Scripts;
+using System.Collections;
 using UnityEngine;
 
-public class Elevator : MonoBehaviour
+public class Elevator : Activatable
 {
 
     public Vector3 StartPos;
@@ -19,9 +19,19 @@ public class Elevator : MonoBehaviour
 
     private bool movement = true;
 
+    protected override bool Active { get; set; }
+
+    protected override bool _needsActivating { get; set; }
+
+    public bool NeedsActivating;
+
     // Start is called before the first frame update
     void Start()
     {
+        _needsActivating = NeedsActivating;
+
+        Active = !_needsActivating;
+
         transform.position = StartPos;
         nextPos = EndPos;
 
@@ -32,7 +42,7 @@ public class Elevator : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (movement)
+        if (movement && Active)
         {
             StartCoroutine(verticalMovement(MovementWait));
         }
@@ -49,6 +59,16 @@ public class Elevator : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, nextPos, travelSpeed);
+    }
+
+    public override void Activate()
+    {
+        Active = true;
+    }
+
+    public override void Deactivate()
+    {
+        Active = false;
     }
 
 }

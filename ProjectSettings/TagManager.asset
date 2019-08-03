@@ -8,6 +8,7 @@ TagManager:
   - TextTrigger
   - Floor
   - Elevator
+  - Key
   layers:
   - Default
   - TransparentFX
