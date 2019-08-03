@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             if (rigidBody.velocity.magnitude <= maxSpeed )
             {
