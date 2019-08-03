@@ -42,7 +42,6 @@ namespace Assets.Scripts
         private IEnumerator Rotate(float seconds)
         {
             float rotateDelta = 360 / (50 / (1 / RotateTime));
-            //Bug when rotation is anitclockwise
             if (RotateDirection == RotateDirection.AntiClockwise)
             {
                 rotateDelta *= -1;
@@ -54,8 +53,9 @@ namespace Assets.Scripts
 
             if (Intervals == 0)
             {
-                yield return null;
+                yield break;
             }
+
             var a = yRotation % (360/Intervals);
 
             if (a < Mathf.Abs(rotateDelta))

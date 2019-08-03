@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,7 +10,6 @@ public class Player : MonoBehaviour
     public Quaternion StartRotation;
 
     private int impulseTimer = 0;
-
 
     // Start is called before the first frame update
     void Start()
@@ -55,10 +53,7 @@ public class Player : MonoBehaviour
         if (impulseTimer > 0)
         {
             impulseTimer--;
-            if (impulseTimer == 0)
-            {
-                print("Dash loaded");
-            }
+            DashLoaded();
 
         }
 
@@ -74,8 +69,12 @@ public class Player : MonoBehaviour
         {
             rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
             impulseTimer = 2 * 50;
-            print("Dashed");
         
         }
+    }
+
+    private void DashLoaded()
+    {
+        //TODO: Give feedback that the dash is loaded
     }
 }
