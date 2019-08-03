@@ -57,6 +57,22 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnCollisionStay(Collision collision)
+    {
+        if (Constants.FloorTags.Contains(collision.gameObject.tag))
+        {
+            if (moveCounting)
+            {
+                moveCounting = false;
+            }
+            if (!canMove)
+            {
+                print("Can start moving again");
+                canMove = true;
+            }
+        }
+    }
+
     void OnCollisionExit(Collision collision)
     {
         if (Constants.FloorTags.Contains(collision.gameObject.tag))
@@ -69,15 +85,8 @@ public class Player : MonoBehaviour
     {
         if (Constants.FloorTags.Contains(collision.gameObject.tag))
         {
-            if (moveCounting)
-            {
-                StopCoroutine(StopMovingAfterSeconds(moveTimer));
-            }
-            if (!canMove)
-            {
-                print("Can start moving again");
-                canMove = true;
-            }
+            print(moveCounting);
+            
         }
     }
 
@@ -85,15 +94,18 @@ public class Player : MonoBehaviour
     {
         moveCounting = true;
         yield return new WaitForSeconds(seconds);
-        canMove = false;
-        moveCounting = false;
+        if (moveCounting)
+        {
+            canMove = false;
+            moveCounting = false;
+        }
     }
 
     void FixedUpdate()
     {
         if (!canMove)
         {
-            print("Cant Move");
+            //print("Cant Move");
             return;
         }
 
