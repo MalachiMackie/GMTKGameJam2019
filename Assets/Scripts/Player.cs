@@ -31,11 +31,23 @@ public class Player : MonoBehaviour
         {
             transform.position = StartPos;
         }
+
+        if (other.gameObject.tag == "TurnTable")
+        {
+            transform.SetParent(other.gameObject.transform);
+        }
+    }
+
+    void OnTriggerExit(Collider collider)
+    {
+        if (collider.gameObject.tag == "TurnTable")
+        {
+            transform.SetParent(null);
+        }
     }
 
     void FixedUpdate()
     {
-        Debug.Log(rigidBody.velocity.magnitude);
         if (Input.GetKey(KeyCode.W))
         {
             if (rigidBody.velocity.magnitude <= maxSpeed )
