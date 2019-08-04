@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
     public float ExplosionRadius = 4;
     public float ExplosionUpward = 0.4f;
 
+    private AudioSource AudioSource;
+    private AudioSource[] AudioSources;
+    private AudioClip PlayerDashAudio;
+    private AudioClip KeyUnlockAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +47,11 @@ public class Player : MonoBehaviour
         CubesPivotWidthDistance = CubeSize * CubesInRow / 2;
         CubesPivotHeightDistance = CubeSize * CubesInRow;
         CubesPivot = new Vector3(CubesPivotWidthDistance, CubesPivotHeightDistance, CubesPivotWidthDistance);
+
+        AudioSources = this.GetComponents<AudioSource>();
+        AudioSource = AudioSources[0];
+        PlayerDashAudio = AudioSources[0].clip;
+        KeyUnlockAudio = AudioSources[1].clip;
     }
 
     // Update is called once per frame
@@ -57,6 +66,7 @@ public class Player : MonoBehaviour
         {
             case "Respawn":
                 {
+                    gameManager.PlayerDeathAudio();
                     Explode();
                     gameManager.ReloadAfterSeconds(2);
                     break;
@@ -75,6 +85,7 @@ public class Player : MonoBehaviour
                 }
             case "Key":
                 {
+                    gameManager.PlaySound(AudioSource, KeyUnlockAudio);
                     var keyScript = other.gameObject.GetComponent<Key>();
                     keyScript.Trigger();
                     break;
@@ -174,6 +185,7 @@ public class Player : MonoBehaviour
 
     IEnumerator Dash()
     {
+        gameManager.PlaySound(AudioSource, PlayerDashAudio);
         rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
         canDash = false;
         _playerHud.StartDash();
@@ -210,7 +222,6 @@ public class Player : MonoBehaviour
                 }
             }
         }
-
         Vector3 explosionPos = transform.position;
         Collider[] colliders = Physics.OverlapSphere(explosionPos, ExplosionRadius);
         foreach (Collider hit in colliders)
