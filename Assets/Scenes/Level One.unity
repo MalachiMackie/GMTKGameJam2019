@@ -223,6 +223,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
         type: 3}
+      propertyPath: TravelPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
       propertyPath: startPos.x
       value: 4.52
       objectReference: {fileID: 0}
@@ -245,6 +250,26 @@ PrefabInstance:
         type: 3}
       propertyPath: travelTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].x
+      value: 4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].x
+      value: -4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].z
+      value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].z
+      value: -4.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdc06b652e727624aa8d608c18453c91, type: 3}
@@ -634,6 +659,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
         type: 3}
+      propertyPath: TravelPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
       propertyPath: startPos.x
       value: -4.52
       objectReference: {fileID: 0}
@@ -656,6 +686,26 @@ PrefabInstance:
         type: 3}
       propertyPath: travelTime
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].x
+      value: -4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].x
+      value: 4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].z
+      value: -18
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].z
+      value: -18
       objectReference: {fileID: 0}
     - target: {fileID: 8565048585535540555, guid: fdc06b652e727624aa8d608c18453c91,
         type: 3}
@@ -1501,6 +1551,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
         type: 3}
+      propertyPath: TravelPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
       propertyPath: startPos.x
       value: -4.52
       objectReference: {fileID: 0}
@@ -1523,6 +1578,26 @@ PrefabInstance:
         type: 3}
       propertyPath: travelTime
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].x
+      value: -4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].x
+      value: 4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].z
+      value: -6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdc06b652e727624aa8d608c18453c91, type: 3}
@@ -1601,6 +1676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
         type: 3}
+      propertyPath: TravelPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
       propertyPath: startPos.x
       value: -4.52
       objectReference: {fileID: 0}
@@ -1623,6 +1703,26 @@ PrefabInstance:
         type: 3}
       propertyPath: travelTime
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].x
+      value: -4.52
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[0].z
+      value: 7.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7090124727803606165, guid: fdc06b652e727624aa8d608c18453c91,
+        type: 3}
+      propertyPath: TravelPoints.Array.data[1].z
+      value: 7.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fdc06b652e727624aa8d608c18453c91, type: 3}
