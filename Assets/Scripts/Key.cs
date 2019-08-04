@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Key : MonoBehaviour
@@ -10,15 +11,19 @@ public class Key : MonoBehaviour
     private float _floatCounter = 0;
     private Vector3 _startPosition;
 
-    public GameObject ActivatableGO;
+    public List<GameObject> ActivatableGameObjects = new List<GameObject>();
 
-    private Activatable _activatable;
+    private List<Activatable> Activatables = new List<Activatable>();
 
     // Start is called before the first frame update
     void Start()
     {
         _startPosition = transform.position;
-        _activatable = ActivatableGO.GetComponent<Activatable>();
+
+        foreach (var activatableGO in ActivatableGameObjects)
+        {
+            Activatables.Add(activatableGO.GetComponent<Activatable>());
+        }
     }
 
     // Update is called once per frame
@@ -39,7 +44,11 @@ public class Key : MonoBehaviour
     public void Trigger()
     {
         //TODO: Do Special Effects
-        _activatable.Activate();
+        foreach (var activatable in Activatables)
+        {
+            activatable.Activate();
+        }
+
         Destroy(gameObject);
     }
 }

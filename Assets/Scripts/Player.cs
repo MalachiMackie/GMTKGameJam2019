@@ -63,6 +63,8 @@ public class Player : MonoBehaviour
                 }
             case "TurnTable":
                 {
+                    var turnTable = other.gameObject.GetComponent<TurnTable>();
+                    turnTable.Activate();
                     transform.SetParent(other.gameObject.transform);
                     break;
                 }
@@ -88,6 +90,21 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnTriggerStay(Collider collider)
+    {
+        if (Constants.FloorTags.Contains(collider.gameObject.tag))
+        {
+            if (moveCounting)
+            {
+                moveCounting = false;
+            }
+            if (!canMove)
+            {
+                canMove = true;
+            }
+        }
+    }
+
     void OnCollisionStay(Collision collision)
     {
         if (Constants.FloorTags.Contains(collision.gameObject.tag))
@@ -99,6 +116,18 @@ public class Player : MonoBehaviour
             if (!canMove)
             {
                 canMove = true;
+            }
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Elevator")
+        {
+            var elevator = collision.gameObject.GetComponent<Elevator>();
+            if (elevator.NeedsActivating)
+            {
+                elevator.Activate();
             }
         }
     }

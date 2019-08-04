@@ -63,7 +63,7 @@ public class Elevator : Activatable
 
     public override void Activate()
     {
-        Active = true;
+        StartCoroutine(Utils.DoAfterSeconds(() => { Active = true; }, 1));
     }
 
     public override void Deactivate()
