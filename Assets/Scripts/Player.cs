@@ -79,6 +79,18 @@ public class Player : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Elevator")
+        {
+            var elevator = collision.gameObject.GetComponent<Elevator>();
+            if (elevator.NeedsActivating)
+            {
+                elevator.Activate();
+            }
+        }
+    }
+
     void OnCollisionExit(Collision collision)
     {
         if (Constants.FloorTags.Contains(collision.gameObject.tag))

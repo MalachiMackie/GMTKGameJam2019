@@ -19,6 +19,8 @@ namespace Assets.Scripts
 
         public RotateDirection RotateDirection;
 
+        public float RotationOffset = 0;
+        
         public void Start()
         {
             
@@ -57,15 +59,21 @@ namespace Assets.Scripts
             transform.Rotate(0, rotateDelta, 0);
 
             var yRotation = transform.localRotation.eulerAngles.y;
+            var rotationTestValue = yRotation - RotationOffset;
+
+            if (rotationTestValue < 1)
+            {
+                rotationTestValue = rotationTestValue + 360;
+            }
 
             if (Intervals == 0)
             {
                 yield break;
             }
 
-            var a = yRotation % (360/Intervals);
+            var rotationInterval = rotationTestValue % (360/Intervals);
 
-            if (a < Mathf.Abs(rotateDelta))
+            if (rotationInterval < Mathf.Abs(rotateDelta))
             {
                 rotating = false;
                 yield return new WaitForSeconds(seconds);

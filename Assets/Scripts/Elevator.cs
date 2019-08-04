@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Elevator : MonoBehaviour
@@ -19,9 +18,13 @@ public class Elevator : MonoBehaviour
 
     private bool movement = true;
 
+    public bool NeedsActivating = false;
+
     // Start is called before the first frame update
     void Start()
     {
+        movement = !NeedsActivating;
+
         transform.position = StartPos;
         nextPos = EndPos;
 
@@ -49,6 +52,11 @@ public class Elevator : MonoBehaviour
         }
 
         transform.position = Vector3.MoveTowards(transform.position, nextPos, travelSpeed);
+    }
+
+    public void Activate()
+    {
+        movement = true;
     }
 
 }
