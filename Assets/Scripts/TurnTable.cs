@@ -25,6 +25,8 @@ namespace Assets.Scripts
 
         public RotateDirection RotateDirection;
 
+        public float RotationOffset = 0;
+        
         public void Start()
         {
             _needsActivating = NeedsActivating;
@@ -36,14 +38,6 @@ namespace Assets.Scripts
             if (rotating && canRotate && Active)
             {
                 StartCoroutine(Rotate(PauseTime));
-            }
-        }
-
-        void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.tag == "Player")
-            {
-                StartCoroutine(Enable());
             }
         }
 
@@ -63,27 +57,62 @@ namespace Assets.Scripts
 
             transform.Rotate(0, rotateDelta, 0);
 
-            var yRotation = transform.localRotation.eulerAngles.y;
-
             if (Intervals == 0)
             {
                 yield break;
             }
 
-            var a = yRotation % (360/Intervals);
+            var rotationInterval = CalculateInterval(transform.eulerAngles.y);
 
-            if (a < Mathf.Abs(rotateDelta))
+            print(rotationInterval);
+            if (RotateDirection == RotateDirection.Clockwise)
             {
-                rotating = false;
-                yield return new WaitForSeconds(seconds);
-                transform.eulerAngles = new Vector3(0, yRotation + Mathf.Sign(rotateDelta * 0.5f), 0);
-                rotating = true;
+                if ((rotationInterval + rotateDelta) > (360/Intervals))
+                {
+                    while (rotationInterval > Mathf.Sign(rotateDelta) * 0.1)
+                    {
+                        transform.Rotate(0, Mathf.Sign(rotateDelta) * 0.1f, 0);
+                        rotationInterval = CalculateInterval(transform.eulerAngles.y);
+                    }
+
+                    rotating = false;
+                    yield return new WaitForSeconds(seconds);
+                    rotating = true;
+                }
             }
+            else
+            {
+                if ((rotationInterval + rotateDelta) < 0)
+                {
+                    while ((rotationInterval + rotateDelta) > 0)
+                    {
+                        transform.Rotate(0, Mathf.Sign(rotateDelta) * 0.1f, 0);
+                        rotationInterval = CalculateInterval(transform.eulerAngles.y);
+                    }
+
+                    rotating = false;
+                    yield return new WaitForSeconds(seconds);
+                    rotating = true;
+                }
+            }
+        }
+
+        private float CalculateInterval(float yRotation)
+        {
+            var rotationTestValue = yRotation - RotationOffset;
+
+            if (rotationTestValue < 1)
+            {
+                rotationTestValue += 360;
+            }
+
+            return rotationTestValue % (360 / Intervals);
         }
 
         public override void Activate()
         {
             Active = true;
+            StartCoroutine(Enable());
         }
 
         public override void Deactivate()

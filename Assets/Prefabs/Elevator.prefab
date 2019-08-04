@@ -91,7 +91,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 0.99, z: 1}
+  m_Size: {x: 1, y: 0.95, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1365184280598835348
 MonoBehaviour:
@@ -109,6 +109,7 @@ MonoBehaviour:
   EndPos: {x: 0, y: 2.5, z: -2}
   TravelTime: 2
   MovementWait: 1
+  NeedsActivating: 0
 --- !u!54 &1365184280598835355
 Rigidbody:
   m_ObjectHideFlags: 0
