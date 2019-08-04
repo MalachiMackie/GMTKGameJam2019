@@ -537,7 +537,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FloatPeriod: 1
   FloatDistance: 0.1
-  ActivatableGO: {fileID: 0}
+  ActivatableGameObjects: []
 --- !u!1 &4718075011560819011
 GameObject:
   m_ObjectHideFlags: 0
