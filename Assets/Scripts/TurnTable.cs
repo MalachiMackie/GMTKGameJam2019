@@ -41,14 +41,6 @@ namespace Assets.Scripts
             }
         }
 
-        void OnCollisionEnter(Collision collision)
-        {
-            if (collision.gameObject.tag == "Player")
-            {
-                StartCoroutine(Enable());
-            }
-        }
-
         private IEnumerator Enable()
         {
             yield return new WaitForSeconds(StartUpTime);
@@ -82,9 +74,13 @@ namespace Assets.Scripts
 
             if (rotationInterval < Mathf.Abs(rotateDelta))
             {
+                //This is fucked, fix it
+                transform.Rotate();
+                transform.eulerAngles = new Vector3(0, b, 0);
+                print(transform.eulerAngles);
+                print(rotationInterval);
                 rotating = false;
                 yield return new WaitForSeconds(seconds);
-                transform.eulerAngles = new Vector3(0, yRotation + Mathf.Sign(rotateDelta * 0.5f), 0);
                 rotating = true;
             }
         }
@@ -92,6 +88,7 @@ namespace Assets.Scripts
         public override void Activate()
         {
             Active = true;
+            StartCoroutine(Enable());
         }
 
         public override void Deactivate()

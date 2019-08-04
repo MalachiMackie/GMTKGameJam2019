@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
                 }
             case "TurnTable":
                 {
+                    var turnTable = other.gameObject.GetComponent<TurnTable>();
+                    turnTable.Activate();
                     transform.SetParent(other.gameObject.transform);
                     break;
                 }
@@ -69,6 +71,21 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "TurnTable")
         {
             transform.SetParent(null);
+        }
+    }
+
+    void OnTriggerStay(Collider collider)
+    {
+        if (Constants.FloorTags.Contains(collider.gameObject.tag))
+        {
+            if (moveCounting)
+            {
+                moveCounting = false;
+            }
+            if (!canMove)
+            {
+                canMove = true;
+            }
         }
     }
 

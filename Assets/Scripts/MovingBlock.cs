@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovingBlock : MonoBehaviour
+public class MovingBlock : Activatable
 {
     public float TravelTime = 1;
 
@@ -18,14 +18,25 @@ public class MovingBlock : MonoBehaviour
 
     public List<Vector3> TravelPoints = new List<Vector3>();
 
+    public bool NeedsActivating;
+
+    protected override bool _needsActivating { get; set; } = false;
+
+    protected override bool Active { get; set; }
+
     // Start is called before the first frame update
     void Start()
     {
+        _needsActivating = NeedsActivating;
         transform.position = TravelPoints[0];
         nextPos = TravelPoints[1];
         
         travelSpeed = CalculateSpeed(transform.position, nextPos, TravelTime);
-        StartCoroutine(Utils.DoAfterSeconds(() => { Activated = true; }, timeOffset));
+
+        if (!_needsActivating)
+        {
+            StartCoroutine(Utils.DoAfterSeconds(() => { Activated = true; }, timeOffset));
+        }
     }
 
     // FixedUpdate is called 50 times per second
@@ -33,12 +44,6 @@ public class MovingBlock : MonoBehaviour
     {
         if (Activated)
         {
-            if (Debug)
-            {
-                print(transform.position);
-                print(nextPos);
-                print((transform.position - nextPos).magnitude);
-            }
             if ((transform.position - nextPos).magnitude <= 0)
             {
                 NextPoint();
@@ -66,5 +71,15 @@ public class MovingBlock : MonoBehaviour
     {
         var distance = (pos1 - pos2).magnitude;
         return distance / (50 / (1 / travelTime));
+    }
+
+    public override void Activate()
+    {
+        TravelTime = 1;
+    }
+
+    public override void Deactivate()
+    {
+        throw new System.NotImplementedException();
     }
 }

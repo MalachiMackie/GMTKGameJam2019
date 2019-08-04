@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7102237331997889643}
   - component: {fileID: 7102237331997889640}
   - component: {fileID: 7102237331997889646}
-  - component: {fileID: 7102237331997889641}
   - component: {fileID: 7102237331997889653}
   m_Layer: 0
   m_Name: TurnTable
@@ -92,24 +91,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bbe13ff6717a6343a1de521d8ca91a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartUpTime: 0.5
   PauseTime: 1
   Intervals: 4
   RotateTime: 4
+  NeedsActivating: 0
   RotateDirection: 0
---- !u!64 &7102237331997889641
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7102237331997889647}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  RotationOffset: 0
 --- !u!136 &7102237331997889653
 CapsuleCollider:
   m_ObjectHideFlags: 0
