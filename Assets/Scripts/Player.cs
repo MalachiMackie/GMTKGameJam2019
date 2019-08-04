@@ -1,13 +1,9 @@
 using Assets.Scripts;
-using System;
 using System.Collections;
-using System.Threading;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
     private Rigidbody rigidBody;
     public float maxSpeed;
     public float acceleration;
@@ -22,6 +18,8 @@ public class Player : MonoBehaviour
 
     private bool canDash = true;
 
+    private PlayerHud _playerHud;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +27,7 @@ public class Player : MonoBehaviour
         StartRotation = transform.rotation;
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
+        _playerHud = GetComponentInChildren<PlayerHud>();
     }
 
     // Update is called once per frame
@@ -43,8 +42,7 @@ public class Player : MonoBehaviour
         {
             case "Respawn":
                 {
-                    transform.position = StartPos;
-                    transform.rotation = StartRotation;
+                    gameManager.ReloadScene();
                     break;
                 }
             case "TurnTable":
@@ -133,8 +131,21 @@ public class Player : MonoBehaviour
     {
         rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
         canDash = false;
+        _playerHud.StartDash();
         yield return new WaitForSeconds(2);
         canDash = true;
-        //Give feedback that the dash is loaded
+        _playerHud.DashLoaded();
+    }
+
+    public void DisableDash()
+    {
+        canDash = false;
+        _playerHud?.DisableDash();
+    }
+
+    public void EnableDash()
+    {
+        canDash = true;
+        _playerHud?.EnableDash();
     }
 }
