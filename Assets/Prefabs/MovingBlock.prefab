@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7090124727803606163}
   - component: {fileID: 7090124727803606164}
   - component: {fileID: 7090124727803606165}
-  - component: {fileID: 8565048585535540555}
+  - component: {fileID: 3035862292269997382}
   m_Layer: 0
   m_Name: MovingBlock
   m_TagString: Untagged
@@ -105,10 +105,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b8e8eada86f53749a772cae542519e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {x: 1, y: 0, z: 0}
-  endPos: {x: 10, y: 0, z: 0}
-  travelTime: 5
---- !u!54 &8565048585535540555
+  TravelTime: 1
+  timeOffset: 0
+  Debug: 0
+  TravelPoints: []
+  NeedsActivating: 0
+--- !u!54 &3035862292269997382
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
