@@ -64,7 +64,6 @@ namespace Assets.Scripts
 
             var rotationInterval = CalculateInterval(transform.eulerAngles.y);
 
-            print(rotationInterval);
             if (RotateDirection == RotateDirection.Clockwise)
             {
                 if ((rotationInterval + rotateDelta) > (360/Intervals))
