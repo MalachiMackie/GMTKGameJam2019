@@ -57,8 +57,8 @@ public class Player : MonoBehaviour
         {
             case "Respawn":
                 {
-                    explode();
-                    //gameManager.ReloadScene();
+                    Explode();
+                    gameManager.ReloadAfterSeconds(2);
                     break;
                 }
             case "TurnTable":
@@ -165,13 +165,11 @@ public class Player : MonoBehaviour
         _playerHud?.EnableDash();
     }
 
-    public void explode()
+    private void Explode()
     {
         //gets camera and removes the player as a parent
         var camera = GetComponentInChildren<Camera>();
         camera.transform.SetParent(null);
-        // make player disappear
-        gameObject.SetActive(false);
         
         for (int x = 0; x < CubesInRow; x++)
         {
@@ -194,8 +192,8 @@ public class Player : MonoBehaviour
                 rb.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, ExplosionUpward);
             }
         }
-
-        return;
+        // make player disappear
+        gameObject.SetActive(false);
     }
 
     void createPiece(int x, int y, int z)

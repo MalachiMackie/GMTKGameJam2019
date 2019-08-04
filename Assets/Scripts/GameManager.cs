@@ -1,4 +1,5 @@
 using Assets.Scripts;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -85,6 +86,16 @@ public class GameManager : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(scene.name);
+    }
+    public void ReloadAfterSeconds(float seconds)
+    {
+        StartCoroutine(reloadAfterSeconds(seconds));
+    }
+
+    private IEnumerator reloadAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ReloadScene();
     }
 
 }
