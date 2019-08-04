@@ -8,10 +8,12 @@ public class PlayerUI : MonoBehaviour
 
     public Text DisplayText;
 
+    public Player player;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        player = GetComponent<Player>();
     }
 
     // Update is called once per frame
@@ -25,6 +27,11 @@ public class PlayerUI : MonoBehaviour
         if (other.gameObject.tag == "TextTrigger")
         {
             DisplayText.text = other.gameObject.GetComponent<Text>().text;
+
+            if (other.gameObject.name == "Tutorial_2_Trigger")
+            {
+                player.EnableDash();
+            }
         }
     }
 
