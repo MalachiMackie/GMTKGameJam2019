@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
-    class TurnTable : MonoBehaviour
+    class TurnTable : Activatable
     {
         public float StartUpTime = 0.5f;
 
@@ -15,7 +15,13 @@ namespace Assets.Scripts
 
         public float RotateTime = 4;
 
-        private bool activated = false;
+        private bool canRotate = false;
+
+        protected override bool Active { get; set; }
+
+        protected override bool _needsActivating { get; set; }
+
+        public bool NeedsActivating;
 
         public RotateDirection RotateDirection;
 
@@ -23,12 +29,13 @@ namespace Assets.Scripts
         
         public void Start()
         {
-            
+            _needsActivating = NeedsActivating;
+            Active = !_needsActivating;
         }
 
         public void FixedUpdate()
         {
-            if (rotating && activated)
+            if (rotating && canRotate && Active)
             {
                 StartCoroutine(Rotate(PauseTime));
             }
@@ -38,14 +45,14 @@ namespace Assets.Scripts
         {
             if (collision.gameObject.tag == "Player")
             {
-                StartCoroutine(Activate());
+                StartCoroutine(Enable());
             }
         }
 
-        private IEnumerator Activate()
+        private IEnumerator Enable()
         {
             yield return new WaitForSeconds(StartUpTime);
-            activated = true;
+            canRotate = true;
         }
 
         private IEnumerator Rotate(float seconds)
@@ -80,6 +87,16 @@ namespace Assets.Scripts
                 transform.eulerAngles = new Vector3(0, yRotation + Mathf.Sign(rotateDelta * 0.5f), 0);
                 rotating = true;
             }
+        }
+
+        public override void Activate()
+        {
+            Active = true;
+        }
+
+        public override void Deactivate()
+        {
+            Active = false;
         }
 
     }

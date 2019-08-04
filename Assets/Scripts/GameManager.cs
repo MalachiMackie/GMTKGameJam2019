@@ -1,4 +1,4 @@
-﻿using Assets.Scripts;
+using Assets.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     {
         //Do Other Things
         hasPlayer = GetPlayer();
+        if (currentLevel == Levels.One)
+        {
+            Player.DisableDash();
+        }
     }
 
     public void LoadLevel(Levels level)
@@ -76,4 +80,11 @@ public class GameManager : MonoBehaviour
     {
         LoadLevel(currentLevel + 1);
     }
+
+    public void ReloadScene()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
 }
