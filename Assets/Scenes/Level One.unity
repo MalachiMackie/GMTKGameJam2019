@@ -1092,6 +1092,21 @@ PrefabInstance:
       propertyPath: DashCharge
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7107099746283024203, guid: 72314dfbbf66b6a458986cec9a4684f1,
+        type: 3}
+      propertyPath: ExplosionForce
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107099746283024203, guid: 72314dfbbf66b6a458986cec9a4684f1,
+        type: 3}
+      propertyPath: ExplosionUpward
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7107099746283024203, guid: 72314dfbbf66b6a458986cec9a4684f1,
+        type: 3}
+      propertyPath: ExplosionRadius
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6788432004165804931, guid: 72314dfbbf66b6a458986cec9a4684f1,
         type: 3}
       propertyPath: DisplayText
@@ -1226,7 +1241,7 @@ PrefabInstance:
     - target: {fileID: 1547725131715756159, guid: c2b49cb61859e6445acc7a53bb3b0788,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.77
+      value: -7.09
       objectReference: {fileID: 0}
     - target: {fileID: 1547725131715756159, guid: c2b49cb61859e6445acc7a53bb3b0788,
         type: 3}
