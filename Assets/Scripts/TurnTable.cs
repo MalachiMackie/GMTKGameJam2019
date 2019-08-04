@@ -57,32 +57,56 @@ namespace Assets.Scripts
 
             transform.Rotate(0, rotateDelta, 0);
 
-            var yRotation = transform.localRotation.eulerAngles.y;
-            var rotationTestValue = yRotation - RotationOffset;
-
-            if (rotationTestValue < 1)
-            {
-                rotationTestValue = rotationTestValue + 360;
-            }
-
             if (Intervals == 0)
             {
                 yield break;
             }
 
-            var rotationInterval = rotationTestValue % (360/Intervals);
+            var rotationInterval = CalculateInterval(transform.eulerAngles.y);
 
-            if (rotationInterval < Mathf.Abs(rotateDelta))
+            print(rotationInterval);
+            if (RotateDirection == RotateDirection.Clockwise)
             {
-                //This is fucked, fix it
-                transform.Rotate();
-                transform.eulerAngles = new Vector3(0, b, 0);
-                print(transform.eulerAngles);
-                print(rotationInterval);
-                rotating = false;
-                yield return new WaitForSeconds(seconds);
-                rotating = true;
+                if ((rotationInterval + rotateDelta) > (360/Intervals))
+                {
+                    while (rotationInterval > Mathf.Sign(rotateDelta) * 0.1)
+                    {
+                        transform.Rotate(0, Mathf.Sign(rotateDelta) * 0.1f, 0);
+                        rotationInterval = CalculateInterval(transform.eulerAngles.y);
+                    }
+
+                    rotating = false;
+                    yield return new WaitForSeconds(seconds);
+                    rotating = true;
+                }
             }
+            else
+            {
+                if ((rotationInterval + rotateDelta) < 0)
+                {
+                    while ((rotationInterval + rotateDelta) > 0)
+                    {
+                        transform.Rotate(0, Mathf.Sign(rotateDelta) * 0.1f, 0);
+                        rotationInterval = CalculateInterval(transform.eulerAngles.y);
+                    }
+
+                    rotating = false;
+                    yield return new WaitForSeconds(seconds);
+                    rotating = true;
+                }
+            }
+        }
+
+        private float CalculateInterval(float yRotation)
+        {
+            var rotationTestValue = yRotation - RotationOffset;
+
+            if (rotationTestValue < 1)
+            {
+                rotationTestValue += 360;
+            }
+
+            return rotationTestValue % (360 / Intervals);
         }
 
         public override void Activate()
