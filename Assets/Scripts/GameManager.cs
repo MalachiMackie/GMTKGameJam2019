@@ -82,9 +82,6 @@ public class GameManager : MonoBehaviour
             StartCoroutine(AudioFadeOut(AudioSource, MainMenuMusic, 1));
         }
         
-        // pull image to the front
-        //black.transform.position += new Vector3(0, 0, -10);
-
         black.transform.SetAsLastSibling();
 
         anim.SetBool("Fade", true);
@@ -96,6 +93,11 @@ public class GameManager : MonoBehaviour
             case Levels.Menu:
                 {
                     SceneManager.LoadSceneAsync("MainMenu");
+                    break;
+                }
+            case Levels.End:
+                {
+                    SceneManager.LoadSceneAsync("EndScene");
                     break;
                 }
             default:

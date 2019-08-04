@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
         {
             if (rigidBody.velocity.magnitude <= maxSpeed)
             {
-                rigidBody.AddRelativeForce(0, 0, acceleration);
+                rigidBody.AddRelativeForce(0, 0, acceleration * rigidBody.mass);
             }
         }
 
@@ -186,7 +186,7 @@ public class Player : MonoBehaviour
     IEnumerator Dash()
     {
         gameManager.PlaySound(AudioSource, PlayerDashAudio);
-        rigidBody.AddRelativeForce(new Vector3(0, 0, 55), ForceMode.Impulse);
+        rigidBody.AddRelativeForce(new Vector3(0, 0, 10 * rigidBody.mass), ForceMode.Impulse);
         canDash = false;
         _playerHud.StartDash();
         yield return new WaitForSeconds(2);
@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
             Rigidbody rb = hit.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, ExplosionUpward);
+                rb.AddExplosionForce(ExplosionForce + Random.Range(0, 50), new Vector3(transform.position.x + Random.Range(-0.2f, 0.2f), transform.position.y + Random.Range(-0.2f, 0.2f), transform.position.z + Random.Range(-0.2f, 0.2f)), ExplosionRadius, ExplosionUpward +Random.Range(0.1f, 0.1f));
             }
         }
         // make player disappear
