@@ -319,6 +319,11 @@ MonoBehaviour:
   StartPos: {x: 0, y: 0, z: 0}
   StartRotation: {x: 0, y: 0, z: 0, w: 0}
   gameManager: {fileID: 0}
+  CubeSize: 0.2
+  CubesInRow: 5
+  ExplosionForce: 75
+  ExplosionRadius: 2
+  ExplosionUpward: 0.2
 --- !u!114 &6788432004165804931
 MonoBehaviour:
   m_ObjectHideFlags: 0

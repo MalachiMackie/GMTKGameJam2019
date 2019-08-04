@@ -20,6 +20,16 @@ public class Player : MonoBehaviour
 
     private PlayerHud _playerHud;
 
+    public float CubeSize = 0.2f;
+    public int CubesInRow = 5;
+    float CubesPivotWidthDistance;
+    float CubesPivotHeightDistance;
+    Vector3 CubesPivot;
+    public float ExplosionForce = 50;
+    public float ExplosionRadius = 4;
+    public float ExplosionUpward = 0.4f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +38,11 @@ public class Player : MonoBehaviour
         rigidBody = GetComponent<Rigidbody>();
         rigidBody.freezeRotation = true;
         _playerHud = GetComponentInChildren<PlayerHud>();
+
+        //calculate pivot distance
+        CubesPivotWidthDistance = CubeSize * CubesInRow / 2;
+        CubesPivotHeightDistance = CubeSize * CubesInRow;
+        CubesPivot = new Vector3(CubesPivotWidthDistance, CubesPivotHeightDistance, CubesPivotWidthDistance);
     }
 
     // Update is called once per frame
@@ -42,7 +57,8 @@ public class Player : MonoBehaviour
         {
             case "Respawn":
                 {
-                    gameManager.ReloadScene();
+                    explode();
+                    //gameManager.ReloadScene();
                     break;
                 }
             case "TurnTable":
@@ -147,5 +163,52 @@ public class Player : MonoBehaviour
     {
         canDash = true;
         _playerHud?.EnableDash();
+    }
+
+    public void explode()
+    {
+        //gets camera and removes the player as a parent
+        var camera = GetComponentInChildren<Camera>();
+        camera.transform.SetParent(null);
+        // make player disappear
+        gameObject.SetActive(false);
+        
+        for (int x = 0; x < CubesInRow; x++)
+        {
+            for (int y = 0; y < (CubesInRow * 2); y++)
+            {
+                for (int z = 0; z < CubesInRow; z++)
+                {
+                    createPiece(x, y, z);
+                }
+            }
+        }
+
+        Vector3 explosionPos = transform.position;
+        Collider[] colliders = Physics.OverlapSphere(explosionPos, ExplosionRadius);
+        foreach (Collider hit in colliders)
+        {
+            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.AddExplosionForce(ExplosionForce, transform.position, ExplosionRadius, ExplosionUpward);
+            }
+        }
+
+        return;
+    }
+
+    void createPiece(int x, int y, int z)
+    {  
+        // create piece
+        GameObject piece;
+        piece = GameObject.CreatePrimitive(PrimitiveType.Cube);
+
+        piece.transform.position = transform.position + new Vector3(CubeSize * x, CubeSize * y, CubeSize * z) - CubesPivot;
+        piece.transform.localScale = new Vector3(CubeSize, CubeSize, CubeSize);
+
+        piece.AddComponent<Rigidbody>();
+        piece.GetComponent<Rigidbody>().mass = CubeSize;
+        piece.GetComponent<Renderer>().material = GetComponent<Renderer>().material;
     }
 }
