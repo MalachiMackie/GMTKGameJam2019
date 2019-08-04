@@ -18,6 +18,9 @@ public class PlayerHud : MonoBehaviour
                 DashText = text;
             }
         }
+
+        DashText.fontSize = 30;
+        DashText.transform.position = new Vector3(75, 50, 0);
     }
 
     // Update is called once per frame
@@ -44,14 +47,14 @@ public class PlayerHud : MonoBehaviour
     public void DashLoaded()
     {
         
-        StartCoroutine(thing());
+        StartCoroutine(DashFlash());
     }
 
-    private IEnumerator thing()
+    private IEnumerator DashFlash()
     {
         DashText.color = Color.white;
-        DashText.fontSize += 5;
+        DashText.fontSize += 10;
         yield return new WaitForSeconds(0.1f);
-        DashText.fontSize -= 5;
+        DashText.fontSize -= 10;
     }
 }

@@ -9,6 +9,7 @@ public class PlayerUI : MonoBehaviour
     public Text DisplayText;
 
     public Player player;
+    private Text DashUI;
 
     // Start is called before the first frame update
     void Start()
@@ -31,6 +32,8 @@ public class PlayerUI : MonoBehaviour
             if (other.gameObject.name == "Tutorial_2_Trigger")
             {
                 player.EnableDash();
+                //DashUI = player.GetComponentInChildren<Text>();
+                //DashUI.transform.position = new Vector3(75, 50, 0);
             }
         }
     }
