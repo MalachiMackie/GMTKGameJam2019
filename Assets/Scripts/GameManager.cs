@@ -17,6 +17,13 @@ public class GameManager : MonoBehaviour
     public Animator anim;
     public GameObject MainMenu;
 
+    private AudioSource AudioSource;
+    private AudioSource[] AudioSources;
+    private AudioClip MainMenuMusic;
+    private AudioClip LevelMusic;
+    private AudioClip DeathAudio;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +36,16 @@ public class GameManager : MonoBehaviour
         //black.transform.position += new Vector3(0, 0, 10);
 
         StartCoroutine(InitialFade());
+
+        AudioSources = this.GetComponents<AudioSource>();
+        AudioSource = AudioSources[0];
+        MainMenuMusic = AudioSources[0].clip;
+        LevelMusic = AudioSources[1].clip;
+        DeathAudio = AudioSources[2].clip;
+
+        //Fade in Menu music
+        StartCoroutine(AudioFadeIn(AudioSource, MainMenuMusic, 1));
+        
     }
 
     private void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
@@ -60,6 +77,10 @@ public class GameManager : MonoBehaviour
             yield break;
         }
 
+        if (currentLevel == Levels.Menu)
+        {
+            StartCoroutine(AudioFadeOut(AudioSource, MainMenuMusic, 1));
+        }
         
         // pull image to the front
         //black.transform.position += new Vector3(0, 0, -10);
@@ -80,8 +101,17 @@ public class GameManager : MonoBehaviour
             default:
                 {
                     SceneManager.LoadSceneAsync($"Level {level.ToString()}");
+                    PlayLevelMusic();
                     break;
                 }
+        }
+    }
+
+    void PlayLevelMusic()
+    {
+        if (currentLevel == Levels.One)
+        {
+            StartCoroutine(AudioFadeIn(AudioSource, LevelMusic, 1));
         }
     }
     
@@ -135,4 +165,45 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(seconds);
         ReloadScene();
     }
+
+
+    // AUDIO FROM HERE //
+
+    public static IEnumerator AudioFadeOut(AudioSource audioSource, AudioClip audioClip, float FadeTime)
+    {
+        float startVolume = audioSource.volume;
+
+        while (audioSource.volume > 0)
+        {
+            audioSource.volume -= startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+
+        audioSource.Stop();
+        audioSource.volume = startVolume;
+    }
+
+    public static IEnumerator AudioFadeIn(AudioSource audioSource, AudioClip audioClip, float FadeTime)
+    {
+        float startVolume = 0;
+        audioSource.PlayOneShot(audioClip);
+        while (audioSource.volume < audioSource.volume)
+        {
+            audioSource.volume += startVolume * Time.deltaTime / FadeTime;
+
+            yield return null;
+        }
+    }
+
+    public void PlaySound(AudioSource audioSource, AudioClip audioClip)
+    {
+        audioSource.PlayOneShot(audioClip);
+    }
+
+    public void PlayerDeathAudio ()
+    {
+        AudioSource.PlayOneShot(DeathAudio);
+    }
+
 }
